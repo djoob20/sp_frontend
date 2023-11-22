@@ -1,0 +1,10 @@
+<div class="blog-wrapper">
+    <div class="blog-container">
+        <div class="blog-top">
+            <p>créé par {{blog.creator}}</p>
+            <p>{{blog.createdDate | date:'dd/MM/YY'}}</p>
+        </div>
+        <p>{{blog.title}}</p>
+        <a [routerLink]="['/blog', blog.title]" routerLinkActive="router-link-active" id="blog-link" (click)="onGoToBlog()">aller au blog</a>
+    </div>
+</div>

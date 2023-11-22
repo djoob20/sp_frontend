@@ -1,0 +1,47 @@
+<div class="signup-container">
+  <h3>Inscription</h3>
+  <form [formGroup]="signupForm" on (ngSubmit)="onSignup()" style="border:1px solid #ccc">
+    <div class="container">
+      <p>Veuillez remplir ce formulaire pour créer un compte.</p>
+      <hr>
+      <p id="form-error" class="form-error" *ngIf="signupForm.invalid && submitted">Veuillez vérifier que tous les données nécessaires ont été coorectement renseigné!</p>
+
+      <label for="firstname"><b>Prénom</b></label>
+      <div class="input-group">
+        <input id="firstname" type="text" placeholder="Entrer votre Prénom" formControlName="firstname"><span> *</span>
+      </div>
+
+      <label for="lastname"><b>Nom</b></label>
+      <div class="input-group">
+        <input id="lastname" type="text" placeholder="Entrer votre Nom" formControlName="lastname"><span> *</span>
+      </div>
+
+      <label for="email"><b>Email</b></label>
+      <div class="input-group">
+        <input id="email" type="email" placeholder="Entrer votre Email" formControlName="email"><span> *</span>
+      </div>
+
+      <label for="psw"><b>Password</b></label>
+      <div class="input-group">
+        <input id="psw" type="password" placeholder="Entrer votre mot de passe" formControlName="psw"><span> *</span>
+      </div>
+
+      <label for="psw_repeat"><b>Repeter le mot de passe</b></label>
+      <div class="input-group">
+        <input id="psw_repeat" type="password" placeholder="Repeter le mot de passe" formControlName="psw_repeat"> <span> *</span>
+      </div>
+
+      <label>
+        <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+      </label>
+
+      <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+
+      <div class="clearfix">
+        <button type="button" class="cancelbtn" (click)="onCancel()">Annuler</button>
+        <button type="submit" class="signupbtn" (click)="onSignup()" >S'incrire</button>
+      </div>
+    </div>
+  </form>
+
+</div>

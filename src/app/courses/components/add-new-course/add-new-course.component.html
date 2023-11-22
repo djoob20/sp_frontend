@@ -1,0 +1,49 @@
+<div class="new-course-container">
+    <form action="/">
+        <div class="row">
+            <div class="col-15">
+                <label for="new-course-title">Titre</label>
+            </div>
+            <div class="col-50">
+                <input type="text" id="new-course-title" name="new-course-title" required=true placeholder="Entrer le titrer Titre du cours ici...">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-15">
+                <label for="author1">Auteurs</label>
+            </div>
+            <div class="col-25">
+                <select id="author1" name="author1">
+                  <option value="australia">...</option>
+                  <option value="australia">Auteur1</option>
+                  <option value="canada">Auteur2</option>
+                  <option value="usa">Auteur3</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-15">
+                <label for="summary">Résumé</label>
+            </div>
+            <div class="col-85">
+                <textarea id="summary" name="summary" required=true placeholder="Résumer le cours ici..." style="height:500px"></textarea>
+            </div>
+        </div>
+        <div class="last_section">
+
+            <div class="row">
+                <div class="col-15">
+                    <label for="file_to_upload">Charger le fichier complet du cours</label>
+                </div>
+                <div class="col-25">
+                    <input type="file" id="file_to_upload" name="filename">
+                </div>
+            </div>
+            <div class="row">
+                <input type="submit" value="Ajouter">
+            </div>
+        </div>
+    </form>
+</div>

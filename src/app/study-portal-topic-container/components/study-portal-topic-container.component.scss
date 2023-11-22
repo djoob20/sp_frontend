@@ -1,0 +1,116 @@
+/* width */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px lightgray;
+    border-radius: 8px;
+}
+
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    background: gray;
+    border-radius: 10px;
+}
+
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+    background: darkgray;
+}
+
+//--------------------------------------------------------
+.topic-list-wrapper {
+    .topic-header-title-container {
+        background-color: rgb(248, 246, 238);
+        border-bottom: 2px solid #fff6f6;
+        box-shadow: 0 4px 1px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+        position: sticky;
+        top: 0;
+        display: flex;
+        justify-content: space-between;
+        .topic-add-new-course {
+            flex-grow: 1;
+            a {
+                border: 1px solid #0E2140;
+                border-radius: 2px;
+                padding: 0 10px;
+                &:hover {
+                    color: #fff6f6;
+                    background-color: #0E2140;
+                }
+            }
+        }
+        .topic-label,
+        .topic-header-title {
+            text-align: center;
+            font-size: 14px;
+            font-weight: bolder;
+            color: #0E2140;
+        }
+        .topic-label {
+            flex-grow: 3;
+        }
+        .topic-header-title {
+            flex-grow: 6;
+        }
+        .topic-author {
+            flex-grow: 1;
+            font-size: 13px;
+            font-style: italic;
+        }
+    }
+    .topic-container {
+        display: flex;
+        justify-content: space-between;
+        .topic-side-bar-container {
+            border-right: 2px solid lightgray;
+            height: 100%;
+            width: 27%;
+            position: fixed;
+            z-index: 1;
+            overflow-y: scroll;
+        }
+        //le contenu du cours
+        .topic-content {
+            position: absolute;
+            right: 0;
+            padding: 0 15px;
+            width: 73%;
+            margin-bottom: 1em;
+            // box-shadow: 0 4px 1px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+            //lien du cours complet
+            p {
+                margin-top: 3em;
+            }
+            a {
+                margin-top: .7em;
+                float: right;
+            }
+        }
+    }
+}
+
+.active {
+    font-weight: bolder;
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 1067px) {
+    .topic-header-title-container {
+        flex-direction: column;
+        text-align: center;
+        .topic-add-new-course,
+        .topic-label {
+            display: none;
+        }
+    }
+}

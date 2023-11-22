@@ -1,0 +1,31 @@
+<div class="banner">
+    <div class="jumbotron">
+        <div class="jumbotron-left">
+            <h2>Bienvenue au portail d'étude et de recherche</h2>
+            <p>Un espace où les étudiants et les enseignants actuels peuvent en apprendre davantage sur les cours et leurs pairs.</p>
+            <button (click)="onSignup()">s'inscrire maintenant</button>
+            <button (click)="onLogin()">se connecter</button>
+        </div>
+        <div class="jumbotron-right">
+            <img src="assets/landing-page_img_2.png" alt="image d\'accueil" />
+        </div>
+    </div>
+
+    <div class="asside">
+        <div class="card">
+            <a [routerLink]="['/cours', activeCourseTitle]" (click)="onShowCourse()"><i class="fa fa-leanpub fa-5x" aria-hidden="true"></i><br>allez aux cours</a>
+        </div>
+        <div class="card">
+            <a [routerLink]="['/article', activeArticleTitle]" (click)="onShowArticle()"><i class="fa fa-newspaper-o fa-5x" aria-hidden="true"></i> <br>allez aux articles</a>
+        </div>
+        <div class="card">
+            <a routerLink="/publication"><i class="fa fa-book fa-5x" aria-hidden="true"></i><br>allez aux publications</a>
+        </div>
+        <div class="card">
+            <a routerLink="/blog"><i class="fa fa-commenting fa-5x" aria-hidden="true"></i><br>allez aux blogs</a>
+        </div>
+    </div>
+
+
+
+</div>

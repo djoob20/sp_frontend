@@ -1,0 +1,7 @@
+.article-link-content {
+    padding: 8px;
+    &:hover {
+        background-color: lightgray;
+        cursor: pointer;
+    }
+}

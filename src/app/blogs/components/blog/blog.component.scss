@@ -1,0 +1,17 @@
+.blog-wrapper {
+    .blog-container {
+        padding: 4px 10px;
+        box-shadow: 0 4px 1px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 5px;
+        margin: 10px;
+        background-color: rgb(248, 246, 238);
+        color: #000;
+        .blog-top {
+            display: flex;
+            justify-content: space-between;
+            p {
+                font-size: 11px;
+            }
+        }
+    }
+}

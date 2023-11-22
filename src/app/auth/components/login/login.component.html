@@ -1,0 +1,54 @@
+
+<div class="container">
+  <form >
+    <div class="row">
+      <h2 style="text-align:center">Connexion</h2>
+      <div class="vl">
+        <span class="vl-innertext">ou</span>
+      </div>
+
+      <div class="col">
+        <a href="#" class="fb btn">
+          <i class="fa fa-facebook fa-fw"></i> se connecter avec facebook
+        </a>
+        <a href="#" class="twitter btn">
+          <i class="fa fa-twitter fa-fw"></i> se connecter avec Twitter
+        </a>
+       <!--
+       <div #googleButton id="google-btn">
+          <mat-card>
+            <div id="googleButton"></div>
+          </mat-card>
+        </div>
+       -->
+
+        <a #googleButton id="google-btn" class="google"></a>
+
+      </div>
+
+      <div class="col">
+        <div class="hide-md-lg">
+          <p>Vous pouvez vous connecter aussi manuellement:</p>
+        </div>
+
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="submit" value="Login">
+      </div>
+
+    </div>
+  </form>
+</div>
+
+<div class="bottom-container">
+  <div class="row">
+    <div class="col">
+      <a [routerLink]="['/signup'] " routerLinkActive="active " style="color:white" class="btn">s'inscrire maintenant</a>
+    </div>
+    <div class="col">
+      <a href="#" style="color:white" class="btn">Mot de passe oublié?</a>
+    </div>
+  </div>
+</div>
+
+

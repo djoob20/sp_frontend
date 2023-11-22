@@ -1,0 +1,22 @@
+<div class="single-blog-wrapper">
+    <div class="single-blog-container">
+        <div class="blog-top">
+            <p>créé par {{blog.creator}}</p>
+            <h4 id="blog-top-title">{{blog.title}}</h4>
+            <p>{{blog.createdDate | date:'dd/MM/YY'}}</p>
+        </div>
+    </div>
+    <div class="single-blog-messages">
+        <div class="message-list">
+            <p>{{blog.messages}}</p>
+        </div>
+        <form>
+            <div class="form-group">
+                <label for="comment">commentaire:</label>
+                <textarea class="form-control" rows="8" cols="60" id="comment"></textarea>
+                <button type="submit">Envoyer</button>
+            </div>
+        </form>
+
+    </div>
+</div>

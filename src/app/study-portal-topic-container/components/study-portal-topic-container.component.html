@@ -1,0 +1,44 @@
+<div class="topic-list-wrapper" *ngIf="activeTopic==='cours'">
+
+    <div class="w3-bar w3-border topic-header-title-container">
+        <p class="topic-label">Cours</p>
+        <p class="topic-add-new-course"><a [routerLink]="['/cours/create']"><span><i class="fa fa-plus" aria-hidden="true"></i></span></a></p>
+        <p class="topic-header-title" *ngIf="course !== undefined">{{course.title | uppercase}}</p>
+        <p class="topic-author">par {{course.authors}}</p>
+    </div>
+    <div class="topic-container" *ngIf="course !== undefined">
+        <div class="topic-side-bar-container">
+            <app-course *ngFor="let courseMember of courses$ | async" [course]="courseMember" [ngClass]="{'active' : course.title === courseMember.title}">
+            </app-course>
+        </div>
+        <div class="topic-content" *ngIf="course !== undefined">
+            <a href="/cours">télécharger le cours complet</a>
+            <p>{{course.summary}}</p>
+        </div>
+    </div>
+</div>
+
+
+<div class="topic-list-wrapper" *ngIf="activeTopic==='article'">
+
+    <div class="w3-bar w3-border topic-header-title-container" *ngIf="article">
+        <p class="topic-label">Articles</p>
+        <p class="topic-header-title">{{article.title | uppercase}}</p>
+        <p class="topic-author">par {{article.authors}}</p>
+    </div>
+    <div class="topic-container" *ngIf="article !== undefined">
+        <div class="topic-side-bar-container">
+            <app-article *ngFor="let articleMember of articles$ | async" [article]="articleMember" [ngClass]="{'active' : article.title === articleMember.title}">
+            </app-article>
+        </div>
+        <div class="topic-content" *ngIf="article !== undefined">
+            <a href="/article">télécharger l'article complet</a>
+            <p>{{article.summary}}</p>
+        </div>
+        <!--
+    <div class="blogs">
+        <app-blog *ngFor="let mBlog of blogs" [blog]="mBlog"></app-blog>
+    </div>
+    -->
+    </div>
+</div>

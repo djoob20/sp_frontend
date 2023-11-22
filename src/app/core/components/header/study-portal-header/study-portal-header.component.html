@@ -1,0 +1,19 @@
+<header>
+    <div [ngClass]="{responsive: isShowMenuItem}" class="topnav" id="myTopnav">
+
+        <a (click)="onShowMenuItem()" class="brand left highlight" href=""><i class="fa fa-graduation-cap" aria-hidden="true"></i> StudyPortal</a>
+        <a (click)="onShowMenuItem()" class="left highlight" routerLink="home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><i class="fa fa-home" aria-hidden="true"></i> Accueil</a>
+        <a (click)="onShowCourse()" class="left highlight" [routerLink]="['cours', activeCourseTitle]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><i class=" fa fa-leanpub " aria-hidden="true "></i> Cours</a>
+        <a (click)="onShowArticle()" class="left highlight" [routerLink]="['article', activeArticleTitle] " routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><i class="fa fa-newspaper-o " aria-hidden="true "></i> Articles</a>
+        <a (click)="onShowMenuItem()" class="left highlight" routerLink="publication" routerLinkActive="active "><i class="fa fa-book " aria-hidden="true "></i> Publications</a>
+        <a (click)="onShowMenuItem()" class="left highlight" routerLink="blog" routerLinkActive="active "><i class="fa fa-commenting " aria-hidden="true "></i> Blog </a>
+
+        <a (click)="onShowMenuItem()" class="highlight right" [routerLink]="['signup'] " routerLinkActive="active "><i class="fa fa-sign-in " aria-hidden="true "></i> s'inscrire</a>
+      <a (click)="onShowMenuItem()" class="highlight right user" [routerLink]="['auth/login'] " routerLinkActive="active "><i class="fa fa-user " aria-hidden="true "></i> se connecter</a>
+        <a class="icon right" [routerLink]="" (click)="onShowMenuItem()">
+            <i class="fa fa-bars"></i>
+        </a>
+
+    </div>
+
+</header>
