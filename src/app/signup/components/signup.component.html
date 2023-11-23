@@ -4,7 +4,17 @@
     <div class="container">
       <p>Veuillez remplir ce formulaire pour créer un compte.</p>
       <hr>
-      <p id="form-error" class="form-error" *ngIf="signupForm.invalid && submitted">Veuillez vérifier que tous les données nécessaires ont été coorectement renseigné!</p>
+      <p  class="form-error-msg" *ngIf="otherFieldInvalid && submitted">Veuillez renseigner le champ '{{invalidControlName}}'</p>
+      <p  class="form-error-msg" *ngIf="invalidEmail && submitted">Adresse email incorrecte!</p>
+      <p  class="form-error-msg" *ngIf="invalidPassword && submitted">Le mot de passe doit remplir les critères suivants: <br>
+        - Les deux mots de passe doivent être conformes et contenir au moins<br>
+        - 12 charactères <br>
+        - une lettre majuscule. <br>
+        - une lettre minuscule. <br>
+        - un chiffre <br>
+        - un charatère non alphanumérique. <br>
+      </p>
+      
 
       <label for="firstname"><b>Prénom</b></label>
       <div class="input-group">
