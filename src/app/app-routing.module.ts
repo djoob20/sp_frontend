@@ -1,4 +1,4 @@
-import { SignupComponent } from './signup/signup.component';
+import { SignupComponent } from './signup/components/signup.component';
 import { BlogListComponent } from './blogs/components/blog-list/blog-list.component';
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";

@@ -38,8 +38,6 @@ export class SignupComponent {
     this.submitted = true;
      document.body.scrollTop = 0;
      document.documentElement.scrollTop = 0;
-   }else{
-
    }
   }
 

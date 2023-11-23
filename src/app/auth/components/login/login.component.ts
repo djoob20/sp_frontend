@@ -1,9 +1,8 @@
-import {AfterViewInit, Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, ElementRef, NgZone, OnInit, ViewChild} from "@angular/core";
 import {environment} from "../../../../env/environments";
 import {Router} from "@angular/router";
 import {AuthService} from "../../../core/services/auth.service";
 import {CredentialResponse, PromptMomentNotification} from "google-one-tap";
-import {Validators} from "@angular/forms";
 
 
 @Component({
@@ -15,7 +14,7 @@ export class LoginComponent implements OnInit, AfterViewInit{
 
   googleClientId: string = environment.Google.clientID;
 
-  @ViewChild('googleButton') gbutton: ElementRef = new ElementRef({});
+  @ViewChild('googleButton') googleButton: ElementRef = new ElementRef({});
 
   constructor(private router: Router,
               private _ngZone: NgZone,
@@ -87,12 +86,10 @@ export class LoginComponent implements OnInit, AfterViewInit{
 
     // @ts-ignore
     google.accounts.id.renderButton(
-      this.gbutton.nativeElement,
+      this.googleButton.nativeElement,
       {theme:"filled_blue", size: "large", width:100}
 
     )
-
-
 
   }
 
