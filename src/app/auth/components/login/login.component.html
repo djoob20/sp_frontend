@@ -1,54 +1,75 @@
-
-<div class="container">
-  <form >
-    <div class="row">
-      <h2 style="text-align:center">Connexion</h2>
-      <div class="vl">
-        <span class="vl-innertext">ou</span>
+<div class="container" id="container">
+  <div class="form-container sign-up-container">
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <h2>Créer un compte</h2>
+      <div class="social-container">
+        <a href="#" class="social google"><i class="fab fa-google-plus-g"></i></a>
+        <a href="#" class="social fb "><i class="fab fa-facebook-f"></i></a>
+        <a href="#"  class="social twitter"><i class="fab fa-twitter"></i></a>
       </div>
+      <span >ou bien s'inscrire facilement</span>
+      <input type="text" placeholder="Prénom" formControlName="firstname"/>
+      <input type="text" placeholder="Nom" formControlName="lastname"/>
 
-      <div class="col">
-        <a href="#" class="fb btn">
-          <i class="fa fa-facebook fa-fw"></i> se connecter avec facebook
-        </a>
-        <a href="#" class="twitter btn">
-          <i class="fa fa-twitter fa-fw"></i> se connecter avec Twitter
-        </a>
-       <!--
-       <div #googleButton id="google-btn">
-          <mat-card>
-            <div id="googleButton"></div>
-          </mat-card>
+      <input type="email" placeholder="Email" formControlName="email"/>
+      <span class="invalid" [ngClass]="submitted && signupForm.hasError('EmailNotMatch')? 'show-invalid' : '' "><i class="fa-solid fa-triangle-exclamation"></i> adresse email invalid</span>
+
+      <input type="password" placeholder="mot de passe" formControlName="password"/>
+      <span class="invalid" [ngClass]="submitted && signupForm.hasError('PasswordNotMatch')? 'show-invalid': '' "><i class="fa-solid fa-triangle-exclamation"></i>
+        le mot de passe doit contenir au moins 8 charatères dont 1 majuscule,1 minuscule,
+        1 chiffre et 1 charactère special!
+      </span>
+      <input type="password" placeholder="répéter le mot de passe" formControlName="password_repeat"/>
+      <span class="invalid" [ngClass]="submitted && signupForm.hasError('NotSame') && !signupForm.hasError('PasswordNotMatch')? 'show-invalid': '' "><i class="fa-solid fa-triangle-exclamation"></i> les deux mot de passe ne sont pas conformes</span>
+      <br>
+      <button >s'inscrire</button>
+    </form>
+  </div>
+  <div class="form-container sign-in-container">
+    <form action="#">
+      <h1>Se connecter</h1>
+      <br>
+      <input type="email" placeholder="Email"/>
+      <input type="password" placeholder="Mot de passe"/>
+      <a class="password-forgotten" href="#">Mot de passe oublié?</a>
+      <button>Se connecter</button>
+      <div class="social-container">
+        <div class="vl">
+          <p class="hr-lines">ou continuer avec</p>
         </div>
-       -->
-
-        <a #googleButton id="google-btn" class="google"></a>
-
-      </div>
-
-      <div class="col">
-        <div class="hide-md-lg">
-          <p>Vous pouvez vous connecter aussi manuellement:</p>
+        <div class="col">
+          <div #googleButton id="google-btn">
+            <mat-card >
+              <div id="googleButton"></div>
+            </mat-card>
+          </div>
+          <a class="fb btn" (click)="onLogin()">
+            <i class="fa fa-facebook fa-fw"></i> se connecter avec facebook
+          </a>
+          <a href="#" class="twitter btn">
+            <i class="fa fa-twitter fa-fw"></i> se connecter avec Twitter
+          </a>
         </div>
 
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="submit" value="Login">
       </div>
+    </form>
+  </div>
 
-    </div>
-  </form>
-</div>
-
-<div class="bottom-container">
-  <div class="row">
-    <div class="col">
-      <a [routerLink]="['/signup'] " routerLinkActive="active " style="color:white" class="btn">s'inscrire maintenant</a>
-    </div>
-    <div class="col">
-      <a href="#" style="color:white" class="btn">Mot de passe oublié?</a>
+  <div class="overlay-container">
+    <div class="overlay">
+      <div class="overlay-panel overlay-left">
+        <h1>Bienvenue!</h1>
+        <p>veuillez vous connecter pour acceder au portal</p>
+        <button class="ghost" id="signIn">Se connecter</button>
+      </div>
+      <div class="overlay-panel overlay-right">
+        <h1>Bienvenue!</h1>
+        <p>Créer un compte en quelques petites secondes</p>
+        <button class="ghost" id="signUp">Créer un compte</button>
+      </div>
     </div>
   </div>
 </div>
+
 
 

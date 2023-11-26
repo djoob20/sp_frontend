@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
+
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit{
   signupForm!: FormGroup;
   submitted!: boolean;
 
@@ -30,7 +31,9 @@ export class SignupComponent {
     )
 
     this.submitted = false;
+
   }
+
 
   onCancel():void{
     this.router.navigateByUrl('/home');
@@ -100,4 +103,29 @@ export class SignupComponent {
 
   };
 
+  ngOnInit(): void {
+    const signUpButton = document.getElementById('signUp');
+    const signInButton = document.getElementById('signIn');
+    const container = document.getElementById('container');
+
+    // @ts-ignore
+    signUpButton.addEventListener('click', () => {
+      // @ts-ignore
+      container.classList.add("right-panel-active");
+    });
+
+    // @ts-ignore
+    signInButton.addEventListener('click', () => {
+      // @ts-ignore
+      container.classList.remove("right-panel-active");
+    });
+  }
+
+  onLogin() {
+    this.router.navigateByUrl('/auth/login');
+  }
+
+  onCreateAccount() {
+    this.router.navigateByUrl('/signup');
+  }
 }
