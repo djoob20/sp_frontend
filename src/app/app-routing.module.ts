@@ -1,4 +1,3 @@
-import { SignupComponent } from './signup/components/signup.component';
 import { BlogListComponent } from './blogs/components/blog-list/blog-list.component';
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
@@ -13,7 +12,6 @@ const routes: Routes = [
   {path:'publication', component: PublicationComponent},
   {path:'home', loadChildren:() => import('./landing-page/landing-page-routing.module').then(m => m.LandingPageRoutingModule)},
   {path:'', loadChildren:() => import('./landing-page/landing-page-routing.module').then(m => m.LandingPageRoutingModule)},
-  {path:'signup', component:SignupComponent}
 ]
 @NgModule({
   imports:[

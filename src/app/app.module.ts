@@ -5,12 +5,10 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { BlogsModule } from './blogs/blogs.module';
-import { SignupComponent } from './signup/components/signup.component';
 import {AuthRoutingModule} from "./auth/auth-routing.module";
 import {httpInterceptorProvides} from "./core/interceptors";
 import {TopicModule} from "./study-portal-topic-container/topic.module";
 import {ReactiveFormsModule} from "@angular/forms";
-import {SignupModule} from "./signup/signup.module";
 
 @NgModule({
   declarations: [
@@ -22,8 +20,7 @@ import {SignupModule} from "./signup/signup.module";
     CoreModule,
     BlogsModule,
     AuthRoutingModule,
-    ReactiveFormsModule,
-    SignupModule
+    ReactiveFormsModule
   ],
   providers: [
     httpInterceptorProvides
