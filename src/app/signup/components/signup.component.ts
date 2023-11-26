@@ -23,8 +23,8 @@ export class SignupComponent {
       firstname: [null, Validators.required],
       lastname: [null, Validators.required],
       email: [null, [Validators.required, Validators.pattern(this.emailRegexp), Validators.min(1)]],
-      psw: [null, Validators.required],
-      psw_repeat: [null, Validators.required],
+      psw: [null, [Validators.required, Validators.minLength(12)]],
+      psw_repeat: [null, [Validators.required, Validators.minLength(12)]],
     },
       { validators: [this.confirmPasswordValidator] }
     )

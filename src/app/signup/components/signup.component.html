@@ -1,6 +1,6 @@
 <div class="signup-container">
   <h3>Inscription</h3>
-  <form [formGroup]="signupForm" on (ngSubmit)="onSignup()" style="border:1px solid #ccc">
+  <form [formGroup]="signupForm" (ngSubmit)="onSignup()" style="border:1px solid #ccc">
     <div class="container">
       <p>Veuillez remplir ce formulaire pour créer un compte.</p>
       <hr>
@@ -14,7 +14,7 @@
         - un chiffre <br>
         - un charatère non alphanumérique. <br>
       </p>
-      
+
 
       <label for="firstname"><b>Prénom</b></label>
       <div class="input-group">
@@ -33,12 +33,12 @@
 
       <label for="psw"><b>Password</b></label>
       <div class="input-group">
-        <input id="psw" type="password" placeholder="Entrer votre mot de passe" formControlName="psw"><span> *</span>
+        <input id="psw" type="text" placeholder="Entrer votre mot de passe" formControlName="psw"><span> *</span>
       </div>
 
       <label for="psw_repeat"><b>Repeter le mot de passe</b></label>
       <div class="input-group">
-        <input id="psw_repeat" type="password" placeholder="Repeter le mot de passe" formControlName="psw_repeat"> <span> *</span>
+        <input id="psw_repeat" type="text" placeholder="Repeter le mot de passe" formControlName="psw_repeat"> <span> *</span>
       </div>
 
       <label>
