@@ -1,7 +1,7 @@
 import {  NavigationEnd, Router } from '@angular/router';
 import { HelperService } from 'src/app/core/services/helper.services';
 import { Component } from '@angular/core';
-import { Observable, filter, switchMap } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { Article } from 'src/app/core/models/article.models';
 import { Course } from 'src/app/core/models/course.models';
 import { ArticleService } from 'src/app/core/services/article.service';
@@ -36,6 +36,7 @@ export class StudyPortalTopicContainerComponent {
 
   ngOnInit(): void {
 
+    this.helperService.setSecondaryFooterStyle(false);
     this.courses$ = this.courseService.getAllCourses();
     this.courseService.courseSub.pipe(
       switchMap(async (value) => {

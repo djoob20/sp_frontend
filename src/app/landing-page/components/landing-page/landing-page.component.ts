@@ -1,7 +1,7 @@
 import { HelperService } from 'src/app/core/services/helper.services';
 import { ArticleService } from 'src/app/core/services/article.service';
 import { CourseService } from 'src/app/core/services/course.services';
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './landing-page.component.html',
   styleUrls: ['./landing-page.component.scss']
 })
-export class LandingPageComponent implements OnInit{
+export class LandingPageComponent implements OnInit, OnDestroy{
 
   activeArticleTitle!: string;
   activeCourseTitle!: string;
@@ -21,6 +21,8 @@ export class LandingPageComponent implements OnInit{
 
   }
   ngOnInit(): void {
+    this.helperService.setSecondaryFooterStyle(true);
+
     this.courseService.courseSub.subscribe(value =>{
       this.activeCourseTitle = this.helperService.filterTitle(value.title);
     });
@@ -28,6 +30,9 @@ export class LandingPageComponent implements OnInit{
     this.articleService.articleSub.subscribe(value =>{
       this.activeArticleTitle = this.helperService.filterTitle(value.title);
     });
+  }
+  ngOnDestroy(): void {
+    this.helperService.setSecondaryFooterStyle(false);
   }
 
   onLogin():void{
@@ -45,5 +50,6 @@ export class LandingPageComponent implements OnInit{
   onShowArticle():void{
     this.helperService.setActiveTopic('article');
   }
+
 
 }

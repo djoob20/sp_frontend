@@ -8,6 +8,7 @@ import { BehaviorSubject, filter } from 'rxjs';
 export class HelperService {
 
   public activeTopic$ = new BehaviorSubject<string>('');
+  public  isSecondaryFooterStyle$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private router: Router) {
     this.router.events
@@ -37,5 +38,9 @@ export class HelperService {
 
   setActiveTopic(topic:'cours' |'article' |'publication' ):void{
     this.activeTopic$.next(topic);
+  }
+
+  setSecondaryFooterStyle(value : boolean){
+    this.isSecondaryFooterStyle$.next(value);
   }
 }

@@ -1,5 +1,5 @@
 <div class="container" id="container">
-  <div class="form-container sign-up-container">
+  <div class="form-container sign-up-container" id="sign-up-container">
     <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
       <h2>Créer un compte</h2>
       <div class="social-container">
@@ -22,27 +22,30 @@
       <input type="password" placeholder="répéter le mot de passe" formControlName="password_repeat"/>
       <span class="invalid" [ngClass]="submitted && signupForm.hasError('NotSame') && !signupForm.hasError('PasswordNotMatch')? 'show-invalid': '' "><i class="fa-solid fa-triangle-exclamation"></i> les deux mot de passe ne sont pas conformes</span>
       <br>
-      <button >s'inscrire</button>
+      <button class="signup-btn">s'inscrire</button>
+      <a id="signin-link" class="a_link_style sign-in-link"(click)="onShowSigninForm()">Se connecter</a>
     </form>
   </div>
-  <div class="form-container sign-in-container">
+  <div class="form-container sign-in-container" id="sign-in-container">
     <form action="#">
       <h1>Se connecter</h1>
       <br>
       <input type="email" placeholder="Email"/>
       <input type="password" placeholder="Mot de passe"/>
-      <a class="password-forgotten" href="#">Mot de passe oublié?</a>
+      <a class="a_link_style" href="#">Mot de passe oublié?</a>
       <button>Se connecter</button>
+      <p class="create_account">ou bien <a class="a_link_style" (click)="onShowSignupForm()">créez un compte mantenant</a></p>
       <div class="social-container">
         <div class="vl">
           <p class="hr-lines">ou continuer avec</p>
         </div>
         <div class="col">
-          <div #googleButton id="google-btn">
+          <div #googleButton id="google-btn" class="google-btn">
             <mat-card >
               <div id="googleButton"></div>
             </mat-card>
           </div>
+
           <a class="fb btn" (click)="onLogin()">
             <i class="fa fa-facebook fa-fw"></i> se connecter avec facebook
           </a>
