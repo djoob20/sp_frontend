@@ -40,7 +40,7 @@ export class LandingPageComponent implements OnInit, OnDestroy{
   }
 
   onSignup():void{
-    this.router.navigateByUrl('/signup');
+    this.router.navigateByUrl('/auth/login');
   }
 
   onShowCourse():void{
