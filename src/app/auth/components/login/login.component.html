@@ -1,6 +1,6 @@
 <div class="container" id="container">
   <div class="form-container sign-up-container" id="sign-up-container">
-    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
       <h2>Créer un compte</h2>
       <div class="social-container">
         <a href="#" class="social google"><i class="fab fa-google-plus-g"></i></a>
@@ -27,10 +27,14 @@
     </form>
   </div>
   <div class="form-container sign-in-container" id="sign-in-container">
-    <form action="#">
+    <form [formGroup]="signInForm" (ngSubmit)="onLogin()">
       <h1>Se connecter</h1>
       <br>
-      <input type="email" placeholder="Email"/>
+      <span class="invalid" [ngClass]="submitted && signInForm.hasError('EmailNotMatch')? 'show-invalid' : '' ">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        Les données fournies sont incorrectes!
+      </span>
+      <input type="email" placeholder="Email" formControlName="email"/>
       <input type="password" placeholder="Mot de passe"/>
       <a class="a_link_style" href="#">Mot de passe oublié?</a>
       <button>Se connecter</button>
@@ -52,6 +56,9 @@
           <a href="#" class="twitter btn">
             <i class="fa fa-twitter fa-fw"></i> se connecter avec Twitter
           </a>
+
+
+
         </div>
 
       </div>

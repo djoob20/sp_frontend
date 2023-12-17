@@ -7,8 +7,6 @@ import {CustomValidator} from "../../../core/validators/custom-validator";
 import {HelperService} from "../../../core/services/helper.services";
 import {BreakpointObserver, Breakpoints, BreakpointState} from "@angular/cdk/layout";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {take} from "rxjs";
-
 
 @Component({
   selector: 'app-login',
@@ -20,6 +18,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   private googleClientId: string = environment.Google.clientID;
 
   signupForm!: FormGroup;
+  signInForm!: FormGroup;
   submitted!: boolean;
 
   invalidEmail!: boolean;
@@ -36,6 +35,8 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
               private helperService: HelperService,
               private responsive: BreakpointObserver) {
 
+
+    //Validate Signup form
     this.signupForm = this.formBuilder.group({
         firstname: [null, Validators.required],
         lastname: [null, Validators.required],
@@ -53,11 +54,30 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
           ],
         updateOn: 'change'
       }
-    )
+    );
 
+    //Validate Sign-in Form
+    this.signInForm = this.formBuilder.group({
+
+        email: [null, [Validators.required, Validators.min(1)]],
+        password: [null, Validators.required]
+      },
+      {
+        validators:
+          [
+            CustomValidator.checkPasswordValidator,
+            CustomValidator.emailValidator
+
+          ],
+        updateOn: 'change'
+      }
+    );
+
+    //reset submitted
     this.submitted = false;
 
     this.handleInvalidControls();
+
 
 
   }
@@ -78,7 +98,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
     }
 
-
+    //Handle responsive design while resizing
     this.responsive
       .observe([Breakpoints.HandsetPortrait])
       .subscribe((state: BreakpointState) => {
@@ -107,6 +127,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     signUpButton.addEventListener('click', () => {
       // @ts-ignore
       container.classList.add("right-panel-active");
+      this.submitted = false;
     });
 
     // @ts-ignore
@@ -117,6 +138,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
     });
 
+    this.submitted = false;
   }
 
   async handleCredentialResponse(response: CredentialResponse) {
@@ -124,19 +146,33 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
       (x: any) => {
         localStorage.setItem('token', x.token);
         this.authService.setToken(x.token);
+        console.log("X after login with google: "+ response.credential);
+
         this._ngZone.run(() => {
           this.router.navigateByUrl('/home');
+
+
         })
       },
+
+
       (error: any) => {
         console.log(error)
       }
     )
+
+
+
   }
 
 
   onSignup() {
+    this.submitted = true;
 
+    this.resetControlValidator();
+    if (this.signupForm.invalid) {
+      this.handleInvalidControls();
+    }
   }
 
   onCancel() {
@@ -144,15 +180,20 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onLogin() {
+    this.submitted = true;
+    this.resetControlValidator();
+    if (this.signInForm.invalid) {
+      this.handleInvalidControls();
+    }
   }
 
   ngAfterViewInit(): void {
-    // this.initGoogleButton();
+    this.initGoogleButton();
 
-    /* const GB = document.getElementById('google-btn');
+     const GB = document.getElementById('google-btn');
      if (GB){
        GB.classList.add('btn-google');
-     }*/
+     }
 
   }
 
@@ -164,8 +205,11 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
       callback: this.handleCredentialResponse.bind(this),
       auto_select: false,
       cancel_on_tap_outside: true,
-      ux_mode: "popup"
+      ux_mode: "popup",
+
+
     });
+
 
     // @ts-ignore
     google.accounts.id.renderButton(
@@ -175,23 +219,11 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
   }
 
-  login() {
 
-  }
 
-  onSubmit() {
-
-    this.submitted = true;
+  private resetControlValidator():void{
     this.invalidEmail = false;
     this.invalidPassword = false;
-
-    if (this.signupForm.invalid) {
-      this.handleInvalidControls();
-    } else {
-
-    }
-
-
   }
 
   public handleInvalidControls() {
@@ -276,7 +308,5 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
   }
-
-
 
 }
