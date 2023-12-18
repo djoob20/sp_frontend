@@ -2,7 +2,11 @@
 
 .topnav {
     background-color: #0E2140;
-    overflow: hidden;
+    display: flex;
+}
+
+.topnav > div:nth-child(7) {
+  margin-left:auto;
 }
 
 
@@ -14,7 +18,7 @@
     text-align: center;
     padding: 18px;
     text-decoration: none;
-    font-size: 17px;
+    font-size: 16px;
 }
 
 
@@ -33,6 +37,33 @@
     border-radius: 100%;
   }
 }
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #0E2140;
+  color: #fff;
+  min-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: #fff;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #fff;}
+.dropdown-content a:hover {color: #0E2140;}
+
+.dropdown:hover .dropdown-content {display: block;}
 
 
 /* Hide the link that should open and close the topnav on small screens */
@@ -87,4 +118,10 @@
         display: block;
         text-align: left;
     }
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
 }

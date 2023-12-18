@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Observable, Subject, filter, mergeMap, switchMap, take } from 'rxjs';
+import { Observable, Subject, filter, switchMap, take } from 'rxjs';
 import { Article } from 'src/app/core/models/article.models';
 import { ArticleService } from 'src/app/core/services/article.service';
 import { HelperService } from 'src/app/core/services/helper.services';
@@ -56,7 +56,7 @@ export class ArticleComponent implements OnDestroy{
   onShowArticleContent() {
     const articleTitle = this.helperService.filterTitle(this.article.title);
     this.router.navigateByUrl(`article/${articleTitle}`);
-    this.article$ = this.articleService.findarticleById(this.article.id);
+    this.article$ = this.articleService.findArticleById(this.article.id);
     this.articleService.articleSub.next(this.article);
   }
 }

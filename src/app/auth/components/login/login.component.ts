@@ -17,16 +17,17 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private googleClientId: string = environment.Google.clientID;
 
+  //Form groups
   signupForm!: FormGroup;
   signInForm!: FormGroup;
-  submitted!: boolean;
 
+  submitted!: boolean;
   invalidEmail!: boolean;
   invalidPassword!: boolean;
 
   @ViewChild('googleButton') googleButton: ElementRef = new ElementRef({});
 
-  private signinLink = document.getElementById('signin-link');
+  private signInLink = document.getElementById('signin-link');
 
   userProfile: any;
 
@@ -104,17 +105,17 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
       .observe([Breakpoints.HandsetPortrait])
       .subscribe((state: BreakpointState) => {
         if (state.matches) {
-          console.log('state: '+ state.matches)
+          console.log('state: ' + state.matches)
           this.showOrHideSignupForm('hide');
 
 
-          if(this.signinLink){
-            this.signinLink.classList.add('show');
+          if (this.signInLink) {
+            this.signInLink.classList.add('show');
           }
-        }else{
+        } else {
           this.showOrHideSignupForm('show')
-          if(this.signinLink){
-            this.signinLink.classList.add('hide');
+          if (this.signInLink) {
+            this.signInLink.classList.add('hide');
           }
         }
       });
@@ -166,16 +167,14 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
       (error: any) => {
         console.log(error)
       }
-
     )
 
 
   }
 
-   decodeJWTToken(token:any) : void{
+  decodeJWTToken(token: any): JSON {
     return JSON.parse(atob(token.split(".")[1]));
   }
-
 
 
   onSignup() {
@@ -202,10 +201,10 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit(): void {
     this.initGoogleButton();
 
-     const GB = document.getElementById('google-btn');
-     if (GB){
-       GB.classList.add('btn-google');
-     }
+    const GB = document.getElementById('google-btn');
+    if (GB) {
+      GB.classList.add('btn-google');
+    }
 
   }
 
@@ -231,8 +230,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
 
-
-  private resetControlValidator():void{
+  private resetControlValidator(): void {
     this.invalidEmail = false;
     this.invalidPassword = false;
   }
@@ -270,18 +268,18 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   showOrHideSignupForm(value: 'show' | 'hide') {
     const signup = document.getElementById('sign-up-container');
 
-    if(signup){
-       signup.classList.add(value);
+    if (signup) {
+      signup.classList.add(value);
     }
 
   }
 
   onShowSignupForm() {
     const signup = document.getElementById('sign-up-container');
-    const signin = document.getElementById('sign-in-container');
+    const signIn = document.getElementById('sign-in-container');
     const container = document.getElementById('container');
 
-    if(signup){
+    if (signup) {
       // @ts-ignore
       container.classList.add("right-panel-active");
       // @ts-ignore
@@ -291,35 +289,34 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
     }
 
-    if (signin){
-      signin.classList.add('hide');
-      signin.classList.remove('show')
+    if (signIn) {
+      signIn.classList.add('hide');
+      signIn.classList.remove('show')
     }
   }
 
-  onShowSigninForm() {
+  onShowSignInForm() {
     const signup = document.getElementById('sign-up-container');
-    const signin = document.getElementById('sign-in-container');
+    const signIn = document.getElementById('sign-in-container');
     const container = document.getElementById('container');
 
-    if (container){
+    if (container) {
       container.classList.remove("right-panel-active");
       container.classList.add("left-panel-active");
     }
 
-    if (signup){
+    if (signup) {
       signup.classList.add('hide');
       signup.classList.remove('show');
     }
 
 
-    if (signin){
-      signin.classList.remove('hide');
-      signin.classList.add('show')
+    if (signIn) {
+      signIn.classList.remove('hide');
+      signIn.classList.add('show')
     }
 
   }
-
 
 
 }

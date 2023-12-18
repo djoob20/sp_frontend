@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 import {environment} from "../../../env/environments";
@@ -8,36 +8,35 @@ import {environment} from "../../../env/environments";
 })
 export class AuthService {
   private path: string = environment.apiUrl;
-  private token! :string;
+  private token!: string;
 
   public userProfile$ = new BehaviorSubject<string>('');
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  loginWithGoogle(credentials: string):Observable<any>{
+  loginWithGoogle(credentials: string): Observable<any> {
     const header = new HttpHeaders().set('content-type', 'application/json');
 
     return this.http.post(
       this.path + '/api/Auth/loginWithGoogle',
       JSON.stringify(credentials),
-      {headers:header}
+      {headers: header}
     )
   }
 
 
-  public setToken(token: string):void
-  {
+  public setToken(token: string): void {
     this.token = token;
 
   }
 
-  public getToken():string
-  {
+  public getToken(): string {
     return this.token;
 
   }
 
-  setUserProfile(value: string){
+  setUserProfile(value: string) {
     this.userProfile$.next(value);
   }
 }

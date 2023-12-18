@@ -1,16 +1,16 @@
-import { HelperService } from './../../../core/services/helper.services';
-import { Component, Input, OnDestroy } from '@angular/core';
-import {  NavigationEnd, Router } from '@angular/router';
-import {  Subject, concatMap, filter, takeUntil } from 'rxjs';
-import { Course } from 'src/app/core/models/course.models';
-import { CourseService } from 'src/app/core/services/course.services';
+import {HelperService} from '../../../core/services/helper.services';
+import {Component, Input, OnDestroy} from '@angular/core';
+import {NavigationEnd, Router} from '@angular/router';
+import {Subject, concatMap, filter, takeUntil} from 'rxjs';
+import {Course} from 'src/app/core/models/course.models';
+import {CourseService} from 'src/app/core/services/course.services';
 
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.scss'],
 })
-export class CourseComponent implements OnDestroy{
+export class CourseComponent implements OnDestroy {
 
   @Input() course!: Course;
 
@@ -26,29 +26,28 @@ export class CourseComponent implements OnDestroy{
 
     this.router.events
       .pipe(filter((rs): rs is NavigationEnd => rs instanceof NavigationEnd))
-      .subscribe((event:NavigationEnd) => {
+      .subscribe((event: NavigationEnd) => {
         takeUntil(this.destroy$)
         this.url = event.url.substring(event.url.lastIndexOf('/') + 1, event.url.length);
-        if (this.router.url.includes('/cours/')){
+        if (this.router.url.includes('/cours/')) {
           this.courseService.findCourseByTitle(decodeURI(this.url)).pipe(
-
             concatMap(async (value) => {
               if (value) {
                 this.courseService.courseSub.next(value);
                 localStorage.setItem('lac', JSON.stringify(value));
               }
             }),
-
           ).subscribe();
 
           this.helperService.setActiveTopic('cours');
 
-        }else if (this.router.url.includes('/article/')){
+        } else if (this.router.url.includes('/article/')) {
           this.helperService.setActiveTopic('article');
         }
       });
 
   }
+
   ngOnDestroy(): void {
     this.destroy$.next(true);
   }

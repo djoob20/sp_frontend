@@ -23,7 +23,7 @@
       <span class="invalid" [ngClass]="submitted && signupForm.hasError('NotSame') && !signupForm.hasError('PasswordNotMatch')? 'show-invalid': '' "><i class="fa-solid fa-triangle-exclamation"></i> les deux mot de passe ne sont pas conformes</span>
       <br>
       <button class="signup-btn">s'inscrire</button>
-      <a id="signin-link" class="a_link_style sign-in-link"(click)="onShowSigninForm()">Se connecter</a>
+      <a id="signin-link" class="a_link_style sign-in-link"(click)="onShowSignInForm()">Se connecter</a>
     </form>
   </div>
   <div class="form-container sign-in-container" id="sign-in-container">

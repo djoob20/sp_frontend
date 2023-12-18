@@ -8,21 +8,26 @@
         <a (click)="onShowMenuItem()" class="left highlight" routerLink="publication" routerLinkActive="active "><i class="fa fa-book " aria-hidden="true "></i> Publications</a>
         <a (click)="onShowMenuItem()" class="left highlight" routerLink="blog" routerLinkActive="active "><i class="fa fa-commenting " aria-hidden="true "></i> Blog </a>
 
-      <div  *ngIf="!userProfile.givenName">
+      <div  *ngIf="!userProfile">
         <a (click)="onShowMenuItem()" class="highlight right"
            [routerLink]="['auth/login']" routerLinkActive="active"
            [routerLinkActiveOptions]="{exact: true}">
           <i class="fa fa-sign-in " aria-hidden="true "></i> se connecter</a>
       </div>
-      <div  *ngIf="userProfile.givenName">
-        <a *ngIf="userProfile" class="highlight right"> <img [src]="userProfile.imageUrl" [alt]=""> {{userProfile.givenName}}</a>
+      <div  *ngIf="userProfile" class="dropdown right clearfix">
+        <a class="highlight dropbtn clearfix"> <img [src]="userProfile.imageUrl" [alt]=""> {{userProfile.givenName}}</a>
+        <div class="dropdown-content clearfix">
+          <a href="#" >Link 1</a>
+          <a href="#" >Link 2</a>
+          <a href="#" >se déconnecter</a>
+        </div>
       </div>
-
 
         <a class="icon right" [routerLink]="" (click)="onShowMenuItem()">
             <i class="fa fa-bars"></i>
         </a>
 
     </div>
+
 
 </header>

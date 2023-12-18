@@ -6,28 +6,22 @@ import {HelperService} from "../../../services/helper.services";
   templateUrl: './study-portal-footer.component.html',
   styleUrls: ['./study-portal-footer.component.scss']
 })
-export class StudyPortalFooterComponent implements OnInit, AfterViewInit{
+export class StudyPortalFooterComponent implements AfterViewInit {
 
 
   constructor(private helperService: HelperService) {
-
-
-  }
-
-  ngOnInit(): void {
-
   }
 
   ngAfterViewInit(): void {
     const footer = document.getElementById('footer-container');
-    this.helperService.isSecondaryFooterStyle$.subscribe(value =>{
+    this.helperService.isSecondaryFooterStyle$.subscribe(value => {
       // @ts-ignore
-      if (value){
+      if (value) {
         // @ts-ignore
         footer.classList.add('footer-secondary-position');
         // @ts-ignore
         footer.classList.remove('footer-primary-position')
-      }else{
+      } else {
         // @ts-ignore
         footer.classList.remove('footer-secondary-position');
         // @ts-ignore

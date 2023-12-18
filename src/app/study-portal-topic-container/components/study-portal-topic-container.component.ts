@@ -1,11 +1,10 @@
-import {  NavigationEnd, Router } from '@angular/router';
-import { HelperService } from 'src/app/core/services/helper.services';
-import { Component } from '@angular/core';
-import { Observable, switchMap } from 'rxjs';
-import { Article } from 'src/app/core/models/article.models';
-import { Course } from 'src/app/core/models/course.models';
-import { ArticleService } from 'src/app/core/services/article.service';
-import { CourseService } from 'src/app/core/services/course.services';
+import {HelperService} from 'src/app/core/services/helper.services';
+import {Component} from '@angular/core';
+import {Observable, switchMap} from 'rxjs';
+import {Article} from 'src/app/core/models/article.models';
+import {Course} from 'src/app/core/models/course.models';
+import {ArticleService} from 'src/app/core/services/article.service';
+import {CourseService} from 'src/app/core/services/course.services';
 
 @Component({
   selector: 'app-study-portal-topic-container',
@@ -13,9 +12,6 @@ import { CourseService } from 'src/app/core/services/course.services';
   styleUrls: ['./study-portal-topic-container.component.scss']
 })
 export class StudyPortalTopicContainerComponent {
-
-
-  active: string = 'active';
 
   course!: Course;
   courses$!: Observable<Course[]>;
@@ -28,9 +24,10 @@ export class StudyPortalTopicContainerComponent {
   activeArticleTitle!: string;
 
   constructor(private courseService: CourseService,
-    private articleService: ArticleService,
-    private helperService: HelperService,
-    private router:Router){
+              private articleService: ArticleService,
+              private helperService: HelperService
+             )
+  {
 
   }
 
@@ -45,20 +42,20 @@ export class StudyPortalTopicContainerComponent {
       }),
     ).subscribe();
 
-    this.articles$ = this.articleService.getAllarticles();
+    this.articles$ = this.articleService.getAllArticles();
     this.articleService.articleSub.pipe(
       switchMap(async (value) => {
         this.article = value;
         this.activeArticleTitle = value.title;
       }),
-      ).subscribe();
+    ).subscribe();
 
-      this.helperService.activeTopic$.pipe(
-        switchMap(async (value) => {
-          this.activeTopic = value
-        }),
-      ).subscribe();
+    this.helperService.activeTopic$.pipe(
+      switchMap(async (value) => {
+        this.activeTopic = value
+      }),
+    ).subscribe();
 
-    }
+  }
 
 }

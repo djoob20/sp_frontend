@@ -2,9 +2,12 @@
     <div class="jumbotron">
         <div class="jumbotron-left">
             <h2>Bienvenue au portail d'étude et de recherche</h2>
-            <p>Un espace où les étudiants et les enseignants actuels peuvent en apprendre davantage sur les cours et leurs pairs.</p>
+            <p>Un espace d'échange et de recherche accessible à tous les étudiants et professeurs</p>
+
+          <ng-container *ngIf="!userProfile">
             <button (click)="onSignup()">s'inscrire maintenant</button>
             <button (click)="onLogin()">se connecter</button>
+          </ng-container>
         </div>
         <div class="jumbotron-right">
             <img src="assets/landing-page_img_2.png" alt="image d\'accueil" />
