@@ -15,11 +15,14 @@
           <i class="fa fa-sign-in " aria-hidden="true "></i> se connecter</a>
       </div>
       <div  *ngIf="userProfile" class="dropdown right clearfix">
-        <a class="highlight dropbtn clearfix"> <img [src]="userProfile.imageUrl" [alt]=""> {{userProfile.givenName}}</a>
-        <div class="dropdown-content clearfix">
+        <a id="dropdown" class="highlight dropbtn clearfix"
+           (click)="onToggleDropdown()"> <img [src]="userProfile.imageUrl" [alt]=""> {{userProfile.givenName}}
+          <i id="login-arrow-up-down" [ngClass]="showDropdown ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down'" ></i>
+        </a>
+        <div class="dropdown-content clearfix" [ngClass]="showDropdown ? 'show': 'hide'">
           <a href="#" >Link 1</a>
           <a href="#" >Link 2</a>
-          <a href="#" >se déconnecter</a>
+          <a href="#" ><i class="fa-solid fa-power-off"></i> Déconnection</a>
         </div>
       </div>
 

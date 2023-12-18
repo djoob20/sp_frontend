@@ -22,6 +22,7 @@ export class StudyPortalHeaderComponent implements OnInit, OnDestroy {
   userProfile!: UserProfile;
 
   destroy$ = new Subject<boolean>();
+  showDropdown: boolean = false;
 
 
   constructor(private courseService: CourseService,
@@ -42,6 +43,14 @@ export class StudyPortalHeaderComponent implements OnInit, OnDestroy {
         }
       })
     ).subscribe()
+
+    document.addEventListener('click', (event) =>{
+      // @ts-ignore
+      if (!event.target.matches('.dropbtn')) {
+        this.showDropdown = false;
+      }
+    })
+
 
   }
 
@@ -78,4 +87,8 @@ export class StudyPortalHeaderComponent implements OnInit, OnDestroy {
     this.destroy$.next(true);
   }
 
+  onToggleDropdown() {
+    this.showDropdown = !this.showDropdown;
+
+  }
 }

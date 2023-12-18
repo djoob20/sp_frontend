@@ -34,9 +34,10 @@
                 font-size: 18px;
                 background-color: #0E2140;
                 color: #fff;
+              opacity: 0.90;
                 &:hover {
                     cursor: pointer;
-                    opacity: 0.8;
+                  opacity: 1;
                 }
             }
             .jumbotron-right {
