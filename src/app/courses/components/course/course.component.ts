@@ -1,7 +1,7 @@
 import { HelperService } from './../../../core/services/helper.services';
-import { Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
-import { Observable, Subject, concatMap, filter, mergeMap, switchMap, take, takeUntil } from 'rxjs';
+import { Component, Input, OnDestroy } from '@angular/core';
+import {  NavigationEnd, Router } from '@angular/router';
+import {  Subject, concatMap, filter, takeUntil } from 'rxjs';
 import { Course } from 'src/app/core/models/course.models';
 import { CourseService } from 'src/app/core/services/course.services';
 
@@ -13,8 +13,6 @@ import { CourseService } from 'src/app/core/services/course.services';
 export class CourseComponent implements OnDestroy{
 
   @Input() course!: Course;
-
-  course$!: Observable<Course>;
 
   private url!: string;
 
@@ -60,7 +58,7 @@ export class CourseComponent implements OnDestroy{
     const courseTitle = this.helperService.filterTitle(this.course.title);
     localStorage.setItem('lastID', this.course.id);
     this.router.navigateByUrl(`cours/${courseTitle}`);
-    this.course$ = this.courseService.findCourseById(this.course.id);
+    // this.course$ = this.courseService.findCourseById(this.course.id);
     console.log('onShowCourseContent(): ' + this.course.title);
     this.courseService.courseSub.next(this.course);
   }

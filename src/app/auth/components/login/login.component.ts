@@ -28,6 +28,8 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private signinLink = document.getElementById('signin-link');
 
+  userProfile: any;
+
   constructor(private router: Router,
               private _ngZone: NgZone,
               private authService: AuthService,
@@ -77,7 +79,6 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     this.submitted = false;
 
     this.handleInvalidControls();
-
 
 
   }
@@ -145,12 +146,18 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     this.authService.loginWithGoogle(response.credential).subscribe(
       (x: any) => {
         localStorage.setItem('token', x.token);
-        this.authService.setToken(x.token);
-        console.log("X after login with google: "+ response.credential);
+        // to decode the credential response.
+        const responsePayload = this.decodeJWTToken(response.credential);
+        console.log(JSON.stringify(responsePayload));
+        this.authService.setUserProfile(JSON.stringify(responsePayload));
+        sessionStorage.setItem("loggedInUser", JSON.stringify(responsePayload));
+        this.userProfile = responsePayload;
 
+        this.authService.setToken(x.token);
         this._ngZone.run(() => {
           this.router.navigateByUrl('/home');
-
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
 
         })
       },
@@ -159,11 +166,16 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
       (error: any) => {
         console.log(error)
       }
+
     )
 
 
-
   }
+
+   decodeJWTToken(token:any) : void{
+    return JSON.parse(atob(token.split(".")[1]));
+  }
+
 
 
   onSignup() {
@@ -199,17 +211,16 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   initGoogleButton(): void {
+
     // @ts-ignore
     google.accounts.id.initialize({
       client_id: this.googleClientId,
       callback: this.handleCredentialResponse.bind(this),
       auto_select: false,
       cancel_on_tap_outside: true,
-      ux_mode: "popup",
-
+      ux_mode: "popup"
 
     });
-
 
     // @ts-ignore
     google.accounts.id.renderButton(
@@ -308,5 +319,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
   }
+
+
 
 }
