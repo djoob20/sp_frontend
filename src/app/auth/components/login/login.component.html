@@ -5,47 +5,57 @@
       <div class="social-container">
         <a href="#" class="social google"><i class="fab fa-google-plus-g"></i></a>
         <a href="#" class="social fb "><i class="fab fa-facebook-f"></i></a>
-        <a href="#"  class="social twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="social twitter"><i class="fab fa-twitter"></i></a>
       </div>
-      <span >ou bien s'inscrire facilement</span>
+      <span>ou bien s'inscrire facilement</span>
+      <span class="invalid" [ngClass]="submitted && registrationErrorMessage?'show-invalid': ''">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        {{registrationErrorMessage}}
+      </span>
       <input type="text" placeholder="Prénom" formControlName="firstname"/>
       <input type="text" placeholder="Nom" formControlName="lastname"/>
 
       <input type="email" placeholder="Email" formControlName="email"/>
-      <span class="invalid" [ngClass]="submitted && signupForm.hasError('EmailNotMatch')? 'show-invalid' : '' "><i class="fa-solid fa-triangle-exclamation"></i> adresse email invalid</span>
+      <span class="invalid" [ngClass]="submitted && signupForm.hasError('EmailNotMatch')? 'show-invalid' : '' "><i
+        class="fa-solid fa-triangle-exclamation"></i> adresse email invalid</span>
 
       <input type="password" placeholder="mot de passe" formControlName="password"/>
-      <span class="invalid" [ngClass]="submitted && signupForm.hasError('PasswordNotMatch')? 'show-invalid': '' "><i class="fa-solid fa-triangle-exclamation"></i>
+      <span class="invalid" [ngClass]="submitted && signupForm.hasError('PasswordNotMatch')? 'show-invalid': '' ">
+        <i class="fa-solid fa-triangle-exclamation"></i>
         le mot de passe doit contenir au moins 8 charatères dont 1 majuscule,1 minuscule,
         1 chiffre et 1 charactère special!
       </span>
       <input type="password" placeholder="répéter le mot de passe" formControlName="password_repeat"/>
-      <span class="invalid" [ngClass]="submitted && signupForm.hasError('NotSame') && !signupForm.hasError('PasswordNotMatch')? 'show-invalid': '' "><i class="fa-solid fa-triangle-exclamation"></i> les deux mot de passe ne sont pas conformes</span>
+      <span class="invalid"
+            [ngClass]="submitted && signupForm.hasError('NotSame') && !signupForm.hasError('PasswordNotMatch')? 'show-invalid': '' "><i
+        class="fa-solid fa-triangle-exclamation"></i> les deux mot de passe ne sont pas conformes</span>
       <br>
       <button class="signup-btn">s'inscrire</button>
-      <a id="signin-link" class="a_link_style sign-in-link"(click)="onShowSignInForm()">Se connecter</a>
+      <a id="signin-link" class="a_link_style sign-in-link" (click)="onShowSignInForm()">Se connecter</a>
     </form>
   </div>
   <div class="form-container sign-in-container" id="sign-in-container">
     <form [formGroup]="signInForm" (ngSubmit)="onLogin()">
       <h1>Se connecter</h1>
       <br>
-      <span class="invalid" [ngClass]="submitted && signInForm.hasError('EmailNotMatch')? 'show-invalid' : '' ">
+      <span class="invalid"
+            [ngClass]="submitted && (signInForm.hasError('EmailNotMatch') || signInForm.hasError('PasswordNotMatch'))? 'show-invalid' : '' ">
         <i class="fa-solid fa-triangle-exclamation"></i>
         Les données fournies sont incorrectes!
       </span>
       <input type="email" placeholder="Email" formControlName="email"/>
-      <input type="password" placeholder="Mot de passe"/>
+      <input type="password" placeholder="Mot de passe" formControlName="password"/>
       <a class="a_link_style" href="#">Mot de passe oublié?</a>
       <button>Se connecter</button>
-      <p class="create_account">ou bien <a class="a_link_style" (click)="onShowSignupForm()">créez un compte mantenant</a></p>
+      <p class="create_account">ou bien <a class="a_link_style" (click)="onShowSignupForm()">créez un compte
+        mantenant</a></p>
       <div class="social-container">
         <div class="vl">
           <p class="hr-lines">ou continuer avec</p>
         </div>
         <div class="col">
           <div #googleButton id="google-btn" class="google-btn">
-            <mat-card >
+            <mat-card>
               <div id="googleButton"></div>
             </mat-card>
           </div>
@@ -56,9 +66,6 @@
           <a href="#" class="twitter btn">
             <i class="fa fa-twitter fa-fw"></i> se connecter avec Twitter
           </a>
-
-
-
         </div>
 
       </div>

@@ -1,4 +1,4 @@
-import {HelperService} from './../../../services/helper.services';
+import {HelperService} from '../../../services/helper.services';
 import {ArticleService} from 'src/app/core/services/article.service';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CourseService} from 'src/app/core/services/course.services';

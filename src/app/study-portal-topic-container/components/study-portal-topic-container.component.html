@@ -6,12 +6,12 @@
         <p class="topic-header-title" *ngIf="course !== undefined">{{course.title | uppercase}}</p>
         <p class="topic-author">par {{course.authors}}</p>
     </div>
-    <div class="topic-container" *ngIf="course !== undefined">
+    <div class="topic-container" *ngIf="courses$ | async">
         <div class="topic-side-bar-container">
             <app-course *ngFor="let courseMember of courses$ | async" [course]="courseMember" [ngClass]="{'active' : course.title === courseMember.title}">
             </app-course>
         </div>
-        <div class="topic-content" *ngIf="course !== undefined">
+        <div class="topic-content">
             <a href="/cours">télécharger le cours complet</a>
             <p>{{course.summary}}</p>
         </div>
@@ -26,7 +26,7 @@
         <p class="topic-header-title">{{article.title | uppercase}}</p>
         <p class="topic-author">par {{article.authors}}</p>
     </div>
-    <div class="topic-container" *ngIf="article !== undefined">
+    <div class="topic-container" *ngIf="articles$ | async">
         <div class="topic-side-bar-container">
             <app-article *ngFor="let articleMember of articles$ | async" [article]="articleMember" [ngClass]="{'active' : article.title === articleMember.title}">
             </app-article>
