@@ -59,7 +59,12 @@ export class AuthService {
 
   }
 
-  setUserProfile(value: string) {
+  setUserProfile(value: any) {
     this.userProfile$.next(value);
+  }
+
+  logout():void{
+    this.setUserProfile(undefined);
+    sessionStorage.removeItem("loggedInUser");
   }
 }

@@ -19,7 +19,7 @@ export class StudyPortalHeaderComponent implements OnInit, OnDestroy {
 
   isShowMenuItem: boolean = false;
 
-  userProfile!: UserProfile;
+  userProfile!: UserProfile | undefined;
 
   destroy$ = new Subject<boolean>();
   showDropdown: boolean = false;
@@ -32,14 +32,15 @@ export class StudyPortalHeaderComponent implements OnInit, OnDestroy {
 
 
     this.authService.userProfile$.pipe(
-      takeUntil(this.destroy$),
       map((value: string) => {
         if (value) {
-          console.log(JSON.parse(value.toString()))
+          console.log("User Profile in Header:" + JSON.parse(value.toString()))
           this.userProfile = new UserProfile();
           this.userProfile.givenName = JSON.parse(value).name;
           this.userProfile.imageUrl = JSON.parse(value).picture;
           console.log(this.userProfile.givenName);
+        }else{
+          this.userProfile = undefined;
         }
       })
     ).subscribe()
@@ -89,6 +90,11 @@ export class StudyPortalHeaderComponent implements OnInit, OnDestroy {
 
   onToggleDropdown() {
     this.showDropdown = !this.showDropdown;
+
+  }
+
+  onLogout() {
+    this.authService.logout();
 
   }
 }

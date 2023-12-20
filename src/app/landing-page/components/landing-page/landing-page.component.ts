@@ -17,7 +17,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   activeArticleTitle!: string;
   activeCourseTitle!: string;
 
-  userProfile!: UserProfile;
+  userProfile!: UserProfile | undefined;
 
   private destroy$ = new Subject<boolean>();
 
@@ -33,6 +33,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
         if (value) {
           this.userProfile = new UserProfile();
           this.userProfile.givenName = JSON.parse(value).name;
+        }else{
+          this.userProfile = undefined;
         }
       })
     ).subscribe()
