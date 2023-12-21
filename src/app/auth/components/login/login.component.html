@@ -8,9 +8,10 @@
         <a href="#" class="social twitter"><i class="fab fa-twitter"></i></a>
       </div>
       <span>ou bien s'inscrire facilement</span>
-      <span class="invalid" [ngClass]="submitted && registrationErrorMessage?'show-invalid': ''">
+
+      <span class="invalid" [ngClass]="submitted && (signupForm.hasError('FirstnameNotMatch') || signupForm.hasError('LastnameNotMatch'))? 'show-invalid': '' ">
         <i class="fa-solid fa-triangle-exclamation"></i>
-        {{registrationErrorMessage}}
+        Les champs prénom et nom doivent contenir au moins 2 lettres, les chiffres et les symbolesng ne sont pas permis!
       </span>
       <input type="text" placeholder="Prénom" formControlName="firstname"/>
       <input type="text" placeholder="Nom" formControlName="lastname"/>

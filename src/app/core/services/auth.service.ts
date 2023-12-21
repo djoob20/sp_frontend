@@ -37,7 +37,7 @@ export class AuthService {
     this.newUser.email = formValue.email;
     this.newUser.password = formValue.password;
     this.newUser.confirmPassword = formValue.password_repeat;
-    this.newUser.role = "user";
+    this.newUser.role = "utilisateur";
 
     return this.http.post(
         this.apiBaseUrl + '/api/Auth/register',

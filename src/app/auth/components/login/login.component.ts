@@ -22,8 +22,10 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     signInForm!: FormGroup;
 
     submitted!: boolean;
+
     invalidEmail!: boolean;
     invalidPassword!: boolean;
+    invalidUserName!: boolean;
 
     registrationErrorMessage:string | undefined;
 
@@ -52,9 +54,11 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
             {
                 validators:
                     [
+                        CustomValidator.firstnameValidator,
+                        CustomValidator.lastnameValidator,
                         CustomValidator.checkPasswordValidator,
                         CustomValidator.confirmPasswordValidator,
-                        CustomValidator.emailValidator
+                        CustomValidator.emailValidator,
 
                     ],
                 updateOn: 'change'
@@ -151,18 +155,14 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
                 localStorage.setItem('token', x.token);
                 // to decode the credential response.
                 const responsePayload = this.decodeJWTToken(response.credential);
-                console.log(JSON.stringify(responsePayload));
-                this.authService.setUserProfile(JSON.stringify(responsePayload));
-                sessionStorage.setItem("loggedInUser", JSON.stringify(responsePayload));
+                const authUser = JSON.stringify(responsePayload);
+                console.log(authUser);
+                this.authService.setUserProfile(authUser);
+                sessionStorage.setItem("loggedInUser", authUser);
                 this.userProfile = responsePayload;
 
                 this.authService.setToken(x.token);
-                this._ngZone.run(() => {
-                    this.router.navigateByUrl('/home');
-                    document.body.scrollTop = 0;
-                    document.documentElement.scrollTop = 0;
-
-                })
+                this.goToHome();
             },
 
 
@@ -172,6 +172,15 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
         )
 
 
+    }
+
+    private goToHome() {
+        this._ngZone.run(() => {
+            this.router.navigateByUrl('/home');
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+
+        })
     }
 
     decodeJWTToken(token: any): JSON {
@@ -188,9 +197,15 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
         } else {
             //TODO Post registration
             this.authService.registerNewUser(this.signupForm.value).subscribe(
-                next => {
-                    console.log(next);
-                    this.authService.setToken(next.token);
+                authUser => {
+                    console.log(authUser);
+                    this.authService.setToken(authUser.token);
+                    const user = JSON.stringify(authUser);
+                    console.log(user);
+                    this.authService.setUserProfile(user);
+                    sessionStorage.setItem("loggedInUser", user);
+                    this.userProfile = authUser;
+                    this.goToHome();
                 },
                 error => {
                     this.registrationErrorMessage ="error";
@@ -249,6 +264,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     private resetControlValidator(): void {
         this.invalidEmail = false;
         this.invalidPassword = false;
+        this.invalidUserName = false;
     }
 
     public handleInvalidControls() {
@@ -257,8 +273,10 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
             if (controls[name].invalid) {
                 switch (name) {
                     case "firstname":
+                        this.invalidUserName = true;
                         break;
                     case "lastname":
+                        this.invalidUserName = true;
                         break;
                     case "email":
                         this.invalidEmail = true;
@@ -272,6 +290,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
                     default:
                         this.invalidPassword = false;
                         this.invalidEmail = false;
+                        this.invalidUserName = false;
                         break;
                 }
 

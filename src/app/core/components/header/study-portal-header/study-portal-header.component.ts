@@ -36,7 +36,7 @@ export class StudyPortalHeaderComponent implements OnInit, OnDestroy {
         if (value) {
           console.log("User Profile in Header:" + JSON.parse(value.toString()))
           this.userProfile = new UserProfile();
-          this.userProfile.givenName = JSON.parse(value).name;
+          this.userProfile.givenName = JSON.parse(value).name ? JSON.parse(value).name : JSON.parse(value).firstname + " " + JSON.parse(value).lastname;
           this.userProfile.imageUrl = JSON.parse(value).picture;
           console.log(this.userProfile.givenName);
         }else{

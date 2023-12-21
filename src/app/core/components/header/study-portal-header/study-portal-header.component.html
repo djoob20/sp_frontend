@@ -16,8 +16,11 @@
       </div>
       <div  *ngIf="userProfile" class="dropdown right clearfix">
         <a id="dropdown" class="highlight dropbtn clearfix"
-           (click)="onToggleDropdown()"> <img [src]="userProfile?.imageUrl" [alt]=""> {{userProfile?.givenName}}
-          <i id="login-arrow-up-down" [ngClass]="showDropdown ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down'" ></i>
+           (click)="onToggleDropdown()">
+            <i [ngClass]="!userProfile.imageUrl ? 'fa-solid fa-user' : ''"></i>
+            <img *ngIf="userProfile.imageUrl" [src]="userProfile.imageUrl" [alt]="">
+            {{userProfile.givenName}}
+            <i id="login-arrow-up-down" [ngClass]="showDropdown ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down'" ></i>
         </a>
         <div class="dropdown-content clearfix" [ngClass]="showDropdown ? 'show': 'hide'">
           <a href="#" >Link 1</a>
