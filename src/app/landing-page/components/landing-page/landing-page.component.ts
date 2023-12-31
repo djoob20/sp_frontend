@@ -27,17 +27,14 @@ export class LandingPageComponent implements OnInit, OnDestroy {
               private helperService: HelperService,
               private authService: AuthService) {
 
-    this.authService.userProfile$.pipe(
-      takeUntil(this.destroy$),
-      map((value: string) => {
-        if (value) {
-          this.userProfile = new UserProfile();
-          this.userProfile.givenName = JSON.parse(value).name;
-        }else{
-          this.userProfile = undefined;
-        }
-      })
-    ).subscribe()
+    const user = sessionStorage.getItem('userProfile');
+    if(user){
+      this.userProfile = new UserProfile();
+      this.userProfile.firstname = JSON.parse(user).firstname;
+      this.userProfile.lastname = JSON.parse(user).lastname;
+      this.userProfile.imageUrl = JSON.parse(user).imageUrl;
+    }
+
 
   }
 

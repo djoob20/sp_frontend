@@ -1,6 +1,8 @@
 export class UserProfile{
-  givenName!:string;
-  familyName!: string;
+  firstname!:string;
+  lastname!: string;
   imageUrl!:string;
+  token!:string;
+  isLoggedIn!:boolean;
 
 }

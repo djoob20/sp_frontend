@@ -8,18 +8,12 @@
         <a (click)="onShowMenuItem()" class="left highlight" routerLink="publication" routerLinkActive="active "><i class="fa fa-book " aria-hidden="true "></i> Publications</a>
         <a (click)="onShowMenuItem()" class="left highlight" routerLink="blog" routerLinkActive="active "><i class="fa fa-commenting " aria-hidden="true "></i> Blog </a>
 
-      <div  *ngIf="!userProfile">
-        <a (click)="onShowMenuItem()" class="highlight right"
-           [routerLink]="['auth/login']" routerLinkActive="active"
-           [routerLinkActiveOptions]="{exact: true}">
-          <i class="fa fa-sign-in " aria-hidden="true "></i> se connecter</a>
-      </div>
-      <div  *ngIf="userProfile" class="dropdown right clearfix">
-        <a id="dropdown" class="highlight dropbtn clearfix"
-           (click)="onToggleDropdown()">
-            <i [ngClass]="!userProfile.imageUrl ? 'fa-solid fa-user' : ''"></i>
+
+      <div   (click)="onToggleDropdown()" *ngIf="userProfile.isLoggedIn" class="dropdown right clearfix">
+        <a id="dropdown" class="highlight dropbtn clearfix">
+            <i [ngClass]="!userProfile.imageUrl? 'fa-solid fa-user' : ''"></i>
             <img *ngIf="userProfile.imageUrl" [src]="userProfile.imageUrl" [alt]="">
-            {{userProfile.givenName}}
+            {{userProfile.firstname }} {{userProfile.lastname }}
             <i id="login-arrow-up-down" [ngClass]="showDropdown ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down'" ></i>
         </a>
         <div class="dropdown-content clearfix" [ngClass]="showDropdown ? 'show': 'hide'">
@@ -27,6 +21,12 @@
           <a href="#" >Link 2</a>
           <a (click)="onLogout()" [routerLink]="['home']"><i class="fa-solid fa-power-off"></i> Déconnection</a>
         </div>
+      </div>
+      <div  *ngIf="!userProfile.isLoggedIn">
+        <a (click)="onShowMenuItem()" class="highlight right"
+           [routerLink]="['auth/login']" routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact: true}">
+          <i class="fa fa-sign-in " aria-hidden="true "></i> se connecter</a>
       </div>
 
         <a class="icon right" [routerLink]="" (click)="onShowMenuItem()">

@@ -27,13 +27,13 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     invalidPassword!: boolean;
     invalidUserName!: boolean;
 
+    errorLogin!:boolean;
+
     registrationErrorMessage:string | undefined;
 
     @ViewChild('googleButton') googleButton: ElementRef = new ElementRef({});
 
     private signInLink = document.getElementById('signin-link');
-
-    userProfile: any;
 
     constructor(private router: Router,
                 private _ngZone: NgZone,
@@ -152,22 +152,27 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     async handleCredentialResponse(response: CredentialResponse) {
         this.authService.loginWithGoogle(response.credential).subscribe(
             (x: any) => {
-                localStorage.setItem('token', x.token);
+
                 // to decode the credential response.
                 const responsePayload = this.decodeJWTToken(response.credential);
                 const authUser = JSON.stringify(responsePayload);
-                console.log(authUser);
-                this.authService.setUserProfile(authUser);
-                sessionStorage.setItem("loggedInUser", authUser);
-                this.userProfile = responsePayload;
 
-                this.authService.setToken(x.token);
+                const userProfile = JSON.parse(authUser);
+
+                if(userProfile){
+                 this.authService.storeUserProfile(userProfile.given_name,
+                                       userProfile.family_name,
+                                       x.token,
+                                       userProfile.picture
+                                      );
+                }
+
                 this.goToHome();
             },
 
 
             (error: any) => {
-                console.log(error)
+                console.log(error.error)
             }
         )
 
@@ -198,18 +203,10 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
             //TODO Post registration
             this.authService.registerNewUser(this.signupForm.value).subscribe(
                 authUser => {
-                    console.log(authUser);
-                    this.authService.setToken(authUser.token);
-                    const user = JSON.stringify(authUser);
-                    console.log(user);
-                    this.authService.setUserProfile(user);
-                    sessionStorage.setItem("loggedInUser", user);
-                    this.userProfile = authUser;
-                    this.goToHome();
+                   this.handleAuthentication(authUser);
                 },
                 error => {
-                    this.registrationErrorMessage ="error";
-                    console.log(error.error);
+                    this.registrationErrorMessage = "error";
 
                 }
             )
@@ -226,7 +223,24 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
         this.resetControlValidator();
         if (this.signInForm.invalid) {
             this.handleInvalidControls();
+        }else{
+            this.authService.login(this.signInForm.value).subscribe(
+                authUser => {
+                    this.errorLogin = false;
+                    this.handleAuthentication(authUser);
+
+                },
+                error => {
+                    this.errorLogin = true;
+                }
+            )
         }
+    }
+
+    private handleAuthentication(authUser:any) {
+
+        this.authService.storeUserProfile(authUser.firstname, authUser.lastname, authUser.token, authUser.imageUrl);
+        this.goToHome();
     }
 
     ngAfterViewInit(): void {
@@ -352,6 +366,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
         }
 
     }
+
 
 
 }

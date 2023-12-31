@@ -4,7 +4,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CourseService} from 'src/app/core/services/course.services';
 import {AuthService} from "../../../services/auth.service";
 import {UserProfile} from "../../../models/user-profile.models";
-import {map, Subject, takeUntil} from "rxjs";
+import {map, Subject, takeUntil, tap} from "rxjs";
 
 
 @Component({
@@ -19,7 +19,7 @@ export class StudyPortalHeaderComponent implements OnInit, OnDestroy {
 
   isShowMenuItem: boolean = false;
 
-  userProfile!: UserProfile | undefined;
+  userProfile!: UserProfile;
 
   destroy$ = new Subject<boolean>();
   showDropdown: boolean = false;
@@ -30,22 +30,27 @@ export class StudyPortalHeaderComponent implements OnInit, OnDestroy {
               private helperService: HelperService,
               private authService: AuthService) {
 
+    this.userProfile = new UserProfile();
 
     this.authService.userProfile$.pipe(
+
       map((value: string) => {
         if (value) {
-          console.log("User Profile in Header:" + JSON.parse(value.toString()))
-          this.userProfile = new UserProfile();
-          this.userProfile.givenName = JSON.parse(value).name ? JSON.parse(value).name : JSON.parse(value).firstname + " " + JSON.parse(value).lastname;
-          this.userProfile.imageUrl = JSON.parse(value).picture;
-          console.log(this.userProfile.givenName);
-        }else{
-          this.userProfile = undefined;
+          console.log("User Profile in Header:" + value)
+          this.userProfile.firstname = JSON.parse(value).firstname;
+          this.userProfile.lastname = JSON.parse(value).lastname;
+          this.userProfile.imageUrl = JSON.parse(value).imageUrl;
+          this.userProfile.isLoggedIn = JSON.parse(value).isLoggedIn === true;
+
+          console.log('user image: ' + this.userProfile.imageUrl)
+
+        } else {
+          this.userProfile.isLoggedIn = false;
         }
       })
     ).subscribe()
 
-    document.addEventListener('click', (event) =>{
+    document.addEventListener('click', (event) => {
       // @ts-ignore
       if (!event.target.matches('.dropbtn')) {
         this.showDropdown = false;
@@ -57,6 +62,18 @@ export class StudyPortalHeaderComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
+    const user = sessionStorage.getItem('userProfile');
+      this.userProfile = new UserProfile();
+    if (user) {
+      this.userProfile.firstname = JSON.parse(user).firstname;
+      this.userProfile.lastname = JSON.parse(user).lastname;
+      this.userProfile.isLoggedIn = JSON.parse(user).isLoggedIn === true;
+      this.userProfile.imageUrl = JSON.parse(user).imageUrl;
+    } else {
+      this.userProfile.isLoggedIn = false;
+    }
+
+    console.log('USER PROFILE: ' + JSON.stringify(this.userProfile));
     this.courseService.courseSub.subscribe(value => {
       if (value) {
         this.activeCourseTitle = this.helperService.filterTitle(value.title);

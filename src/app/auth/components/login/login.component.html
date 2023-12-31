@@ -11,7 +11,7 @@
 
       <span class="invalid" [ngClass]="submitted && (signupForm.hasError('FirstnameNotMatch') || signupForm.hasError('LastnameNotMatch'))? 'show-invalid': '' ">
         <i class="fa-solid fa-triangle-exclamation"></i>
-        Les champs prénom et nom doivent contenir au moins 2 lettres, les chiffres et les symbolesng ne sont pas permis!
+        Les champs prénom et nom doivent contenir au moins 2 lettres, les chiffres et les symboles ne sont pas permis!
       </span>
       <input type="text" placeholder="Prénom" formControlName="firstname"/>
       <input type="text" placeholder="Nom" formControlName="lastname"/>
@@ -39,15 +39,20 @@
     <form [formGroup]="signInForm" (ngSubmit)="onLogin()">
       <h1>Se connecter</h1>
       <br>
-      <span class="invalid"
-            [ngClass]="submitted && (signInForm.hasError('EmailNotMatch') || signInForm.hasError('PasswordNotMatch'))? 'show-invalid' : '' ">
-        <i class="fa-solid fa-triangle-exclamation"></i>
-        Les données fournies sont incorrectes!
-      </span>
+      <span class="invalid login-error"
+            [ngClass]="submitted &&
+            (signInForm.hasError('EmailNotMatch') ||
+            signInForm.hasError('PasswordNotMatch')) ||
+            errorLogin
+            ? 'show-invalid' : '' ">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        L'email ou le mot de passe que vous avez saisi ne correspond pas à nos enregistrements.
+        Veuillez vérifier et réessayer
+      </span><br>
       <input type="email" placeholder="Email" formControlName="email"/>
       <input type="password" placeholder="Mot de passe" formControlName="password"/>
       <a class="a_link_style" href="#">Mot de passe oublié?</a>
-      <button>Se connecter</button>
+      <button (click)="onLogin()">Se connecter</button>
       <p class="create_account">ou bien <a class="a_link_style" (click)="onShowSignupForm()">créez un compte
         mantenant</a></p>
       <div class="social-container">

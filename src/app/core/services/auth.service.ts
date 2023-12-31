@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 import {environment} from "../../../env/environments";
 import {User} from "../models/user.models";
+import {UserProfile} from "../models/user-profile.models";
 
 @Injectable({
   providedIn: 'root'
@@ -63,8 +64,36 @@ export class AuthService {
     this.userProfile$.next(value);
   }
 
+  storeUserProfile(firstname:string, lastname:string, token: string, imageUrl?:string ):void{
+    sessionStorage.removeItem("userProfile");
+    const userProfile = new UserProfile();
+    userProfile.firstname = firstname;
+    userProfile.lastname = lastname;
+    userProfile.token = token;
+    if(imageUrl){
+      userProfile.imageUrl = imageUrl;
+    }
+    userProfile.isLoggedIn = true;
+
+    sessionStorage.setItem('userProfile', JSON.stringify(userProfile))
+    this.userProfile$.next(JSON.stringify(userProfile));
+  }
+
   logout():void{
     this.setUserProfile(undefined);
-    sessionStorage.removeItem("loggedInUser");
+    sessionStorage.removeItem("userProfile");
+
   }
+
+  login(formValue:{email:string, password:string}):Observable<any>{
+    return this.http.post(this.apiBaseUrl + '/api/Auth/login',
+        formValue,
+        {headers: this.requestHeaders}
+    );
+  }
+
+  getImagePath(imageUrl: string):Observable<any>{
+    return this.http.get(imageUrl);
+  }
+
 }
