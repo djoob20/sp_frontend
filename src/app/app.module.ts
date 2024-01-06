@@ -9,6 +9,7 @@ import {AuthRoutingModule} from "./auth/auth-routing.module";
 import {httpInterceptorProvides} from "./core/interceptors";
 import {TopicModule} from "./study-portal-topic-container/topic.module";
 import {ReactiveFormsModule} from "@angular/forms";
+import {provideUserIdleConfig} from "angular-user-idle";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     ReactiveFormsModule
   ],
   providers: [
-    httpInterceptorProvides
+    httpInterceptorProvides,
+    provideUserIdleConfig({ idle: 30, timeout: 10, ping: 120 })
   ],
   bootstrap: [AppComponent]
 })

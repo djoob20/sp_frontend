@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {HelperService} from "../../../core/services/helper.services";
 
 @Component({
   selector: 'app-add-new-course',
@@ -8,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 export class AddNewCourseComponent implements OnInit{
 
 
+  constructor(private helperService: HelperService) {
+  }
+
   ngOnInit(): void {
+    this.helperService.setSecondaryFooterStyle(true);
   }
 
   onAddCourse():void{

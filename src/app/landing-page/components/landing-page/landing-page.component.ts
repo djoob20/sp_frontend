@@ -3,7 +3,7 @@ import {ArticleService} from 'src/app/core/services/article.service';
 import {CourseService} from 'src/app/core/services/course.services';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {UserProfile} from "../../../core/models/user-profile.models";
+import {AuthUser} from "../../../core/models/auth-user.models";
 import {AuthService} from "../../../core/services/auth.service";
 import {map, Subject, takeUntil} from "rxjs";
 
@@ -17,7 +17,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   activeArticleTitle!: string;
   activeCourseTitle!: string;
 
-  userProfile!: UserProfile | undefined;
+  userProfile!: AuthUser | undefined;
 
   private destroy$ = new Subject<boolean>();
 
@@ -29,7 +29,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
     const user = sessionStorage.getItem('userProfile');
     if(user){
-      this.userProfile = new UserProfile();
+      this.userProfile = new AuthUser();
       this.userProfile.firstname = JSON.parse(user).firstname;
       this.userProfile.lastname = JSON.parse(user).lastname;
       this.userProfile.imageUrl = JSON.parse(user).imageUrl;

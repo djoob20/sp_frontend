@@ -3,7 +3,7 @@ import {ArticleService} from 'src/app/core/services/article.service';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CourseService} from 'src/app/core/services/course.services';
 import {AuthService} from "../../../services/auth.service";
-import {UserProfile} from "../../../models/user-profile.models";
+import {AuthUser} from "../../../models/auth-user.models";
 import {map, Subject, takeUntil, tap} from "rxjs";
 
 
@@ -19,7 +19,7 @@ export class StudyPortalHeaderComponent implements OnInit, OnDestroy {
 
   isShowMenuItem: boolean = false;
 
-  userProfile!: UserProfile;
+  userProfile!: AuthUser;
 
   destroy$ = new Subject<boolean>();
   showDropdown: boolean = false;
@@ -30,7 +30,7 @@ export class StudyPortalHeaderComponent implements OnInit, OnDestroy {
               private helperService: HelperService,
               private authService: AuthService) {
 
-    this.userProfile = new UserProfile();
+    this.userProfile = new AuthUser();
 
     this.authService.userProfile$.pipe(
 
@@ -63,7 +63,7 @@ export class StudyPortalHeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const user = sessionStorage.getItem('userProfile');
-      this.userProfile = new UserProfile();
+      this.userProfile = new AuthUser();
     if (user) {
       this.userProfile.firstname = JSON.parse(user).firstname;
       this.userProfile.lastname = JSON.parse(user).lastname;

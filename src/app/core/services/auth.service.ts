@@ -1,9 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, Observable, Subject, takeUntil, tap} from "rxjs";
 import {environment} from "../../../env/environments";
-import {User} from "../models/user.models";
-import {UserProfile} from "../models/user-profile.models";
+import {RegisterUser} from "../models/register-user.models";
+import {AuthUser} from "../models/auth-user.models";
+import {UserIdleService} from "angular-user-idle";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +18,15 @@ export class AuthService {
 
   private requestHeaders = new HttpHeaders().set('content-type', 'application/json');
 
-  private newUser!:User;
+  private newUser!: RegisterUser;
 
-  constructor(private http: HttpClient) {
+  loggedOut$ = new Subject<boolean>();
+
+  constructor(private http: HttpClient,
+              private userIdle: UserIdleService,
+              private router: Router) {
+
+
   }
 
   loginWithGoogle(credentials: string): Observable<any> {
@@ -30,20 +38,27 @@ export class AuthService {
     )
   }
 
-  registerNewUser(formValue: { firstname: string, lastname: string, email: string, password: string, password_repeat: string, role?: string }): Observable<any> {
-
-    this.newUser = new User();
-    this.newUser.firstname = formValue.firstname;
-    this.newUser.lastname = formValue.lastname;
-    this.newUser.email = formValue.email;
-    this.newUser.password = formValue.password;
-    this.newUser.confirmPassword = formValue.password_repeat;
-    this.newUser.role = "utilisateur";
+  registerNewUser(formValue: {
+    firstname: string,
+    lastname: string,
+    email: string,
+    password: string,
+    password_repeat: string,
+    role?: string
+  }): Observable<any> {
+    this.newUser = {
+      firstname: formValue.firstname,
+      lastname: formValue.lastname,
+      email: formValue.email,
+      password: formValue.password,
+      confirmPassword: formValue.password_repeat,
+      role: "utilisateur"
+    }
 
     return this.http.post(
-        this.apiBaseUrl + '/api/Auth/register',
-        this.newUser,
-        {headers: this.requestHeaders}
+      this.apiBaseUrl + '/api/Auth/register',
+      this.newUser,
+      {headers: this.requestHeaders}
     );
 
 
@@ -64,36 +79,61 @@ export class AuthService {
     this.userProfile$.next(value);
   }
 
-  storeUserProfile(firstname:string, lastname:string, token: string, imageUrl?:string ):void{
-    sessionStorage.removeItem("userProfile");
-    const userProfile = new UserProfile();
-    userProfile.firstname = firstname;
-    userProfile.lastname = lastname;
-    userProfile.token = token;
-    if(imageUrl){
-      userProfile.imageUrl = imageUrl;
-    }
-    userProfile.isLoggedIn = true;
+  storeUserProfile(firstname: string, lastname: string, token: string, imageUrl?: string): void {
+    const userProfile = {
+      firstname: firstname,
+      lastname: lastname,
+      token: token,
+      imageUrl: imageUrl,
+      isLoggedIn: true
 
-    sessionStorage.setItem('userProfile', JSON.stringify(userProfile))
+    }
+
+    sessionStorage.setItem('userProfile', JSON.stringify(userProfile));
+    sessionStorage.setItem('token', userProfile.token);
     this.userProfile$.next(JSON.stringify(userProfile));
   }
 
-  logout():void{
+  logout(): void {
+    this.loggedOut$.next(true);
     this.setUserProfile(undefined);
     sessionStorage.removeItem("userProfile");
+    sessionStorage.removeItem("token");
+
+    this.stop();
+    this.stopWatching();
+
+    this.router.navigateByUrl('/auth/login')
+      .then(r => console.log(r)).catch(e => console.log(e));
 
   }
 
-  login(formValue:{email:string, password:string}):Observable<any>{
+  login(formValue: { email: string, password: string }): Observable<any> {
     return this.http.post(this.apiBaseUrl + '/api/Auth/login',
-        formValue,
-        {headers: this.requestHeaders}
+      formValue,
+      {headers: this.requestHeaders}
     );
   }
 
-  getImagePath(imageUrl: string):Observable<any>{
+  getImagePath(imageUrl: string): Observable<any> {
     return this.http.get(imageUrl);
   }
+
+  stop() {
+    this.userIdle.stopTimer();
+  }
+
+  stopWatching() {
+    this.userIdle.stopWatching();
+  }
+
+  startWatching() {
+    this.userIdle.startWatching();
+  }
+
+  restart() {
+    this.userIdle.resetTimer();
+  }
+
 
 }
