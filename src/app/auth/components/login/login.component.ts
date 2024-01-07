@@ -92,6 +92,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     this.handleUserIdle();
 
   }
+
   ngOnDestroy(): void {
     this.helperService.setSecondaryFooterStyle(false);
   }
@@ -166,6 +167,8 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
           this.authService.storeUserProfile(userProfile.given_name,
             userProfile.family_name,
             x.token,
+            userProfile.email,
+            userProfile.role,
             userProfile.picture
           );
         }
@@ -243,7 +246,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private handleAuthentication(authUser: any) {
-    this.authService.storeUserProfile(authUser.firstname, authUser.lastname, authUser.token, authUser.imageUrl);
+    this.authService.storeUserProfile(authUser.firstname, authUser.lastname, authUser.token, authUser.email, authUser.role, authUser.imageUrl);
     this.goToHome();
   }
 

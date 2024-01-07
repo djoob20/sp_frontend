@@ -1,5 +1,6 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {HelperService} from "../../../services/helper.services";
+import {map} from "rxjs";
 
 @Component({
   selector: 'app-study-portal-footer',
@@ -8,8 +9,8 @@ import {HelperService} from "../../../services/helper.services";
 })
 export class StudyPortalFooterComponent implements AfterViewInit {
 
-
   constructor(private helperService: HelperService) {
+
   }
 
   ngAfterViewInit(): void {

@@ -18,7 +18,7 @@
         </a>
         <div class="dropdown-content clearfix" [ngClass]="showDropdown ? 'show': 'hide'">
           <a href="#" >Link 1</a>
-          <a href="#" >Link 2</a>
+          <a *ngIf="userProfile.email==='dembadiop54@gmail.com'" href="#" >Gestionnaire utilisateur</a>
           <a (click)="onLogout()" [routerLink]="['home']"><i class="fa-solid fa-power-off"></i> Déconnection</a>
         </div>
       </div>

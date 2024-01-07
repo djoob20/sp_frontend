@@ -39,6 +39,8 @@ export class StudyPortalHeaderComponent implements OnInit, OnDestroy {
           console.log("User Profile in Header:" + value)
           this.userProfile.firstname = JSON.parse(value).firstname;
           this.userProfile.lastname = JSON.parse(value).lastname;
+          this.userProfile.token = JSON.parse(value).token
+          this.userProfile.email = JSON.parse(value).email;
           this.userProfile.imageUrl = JSON.parse(value).imageUrl;
           this.userProfile.isLoggedIn = JSON.parse(value).isLoggedIn === true;
 

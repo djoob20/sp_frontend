@@ -13,7 +13,7 @@ import {LandingPageRoutingModule} from "./landing-page-routing.module";
   imports: [
     LandingPageRoutingModule,
     CommonModule,
-    RouterModule,
+    RouterModule
 
   ],
   exports: [

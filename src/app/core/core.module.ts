@@ -5,13 +5,16 @@ import { StudyPortalHeaderComponent } from './components/header/study-portal-hea
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { StudyPortalFooterComponent } from './components/footer/study-portal-footer/study-portal-footer.component';
-
+import {PageNotFoundComponent} from "./components/page-not-found/page-not-found.component";
+import {ServerDownComponent} from "./components/server-down/server-down.component";
 
 
 @NgModule({
   declarations: [
     StudyPortalHeaderComponent,
-    StudyPortalFooterComponent
+    StudyPortalFooterComponent,
+    PageNotFoundComponent,
+    ServerDownComponent
 
   ],
   imports: [

@@ -29,6 +29,7 @@ export class AuthService {
 
   }
 
+
   loginWithGoogle(credentials: string): Observable<any> {
 
     return this.http.post(
@@ -79,11 +80,18 @@ export class AuthService {
     this.userProfile$.next(value);
   }
 
-  storeUserProfile(firstname: string, lastname: string, token: string, imageUrl?: string): void {
+  storeUserProfile(firstname: string,
+                   lastname: string,
+                   token: string,
+                   email: string,
+                   role:string,
+                   imageUrl?: string): void {
     const userProfile = {
       firstname: firstname,
       lastname: lastname,
       token: token,
+      email:email,
+      role: role,
       imageUrl: imageUrl,
       isLoggedIn: true
 

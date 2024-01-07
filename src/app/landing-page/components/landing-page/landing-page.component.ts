@@ -4,8 +4,9 @@ import {CourseService} from 'src/app/core/services/course.services';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthUser} from "../../../core/models/auth-user.models";
-import {AuthService} from "../../../core/services/auth.service";
-import {map, Subject, takeUntil} from "rxjs";
+import {first, interval, Subject} from "rxjs";
+import {environment} from "../../../../env/environments";
+import {ConnectionService} from "../../../core/services/connection.services";
 
 @Component({
   selector: 'app-landing-page',
@@ -25,7 +26,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
               private courseService: CourseService,
               private articleService: ArticleService,
               private helperService: HelperService,
-              private authService: AuthService) {
+              private connectionService: ConnectionService) {
 
     const user = sessionStorage.getItem('userProfile');
     if(user){
@@ -39,6 +40,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    console.log("ngOnInit")
     this.helperService.setSecondaryFooterStyle(true);
 
     this.courseService.courseSub.subscribe(value => {
